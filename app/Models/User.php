@@ -61,14 +61,14 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
-    /**
-     * Get the issues assocaited with the user
-     */
+    // /**
+    //  * Get the issues assocaited with the user
+    //  */
 
-    public function issues(): HasMany
-    {
-        return $this->hasMany(Issue::class);
-    }
+    // public function issues(): HasMany
+    // {
+    //     return $this->hasMany(Issue::class);
+    // }
 
     /**
      * Get the issues assocaited with the user
