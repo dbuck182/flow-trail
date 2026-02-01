@@ -58,20 +58,20 @@ class User extends Authenticatable
 
     public function projects(): HasMany
     {
-        return $this->hasMany(Project::class);
+        return $this->hasMany(Project::class, 'owner_id');
     }
 
     // /**
     //  * Get the issues assocaited with the user
     //  */
 
-    // public function issues(): HasMany
-    // {
-    //     return $this->hasMany(Issue::class);
-    // }
+    public function issues(): HasMany
+    {
+        return $this->hasMany(Issue::class);
+    }
 
     /**
-     * Get the issues assocaited with the user
+     * Get the events assocaited with the user
      */
 
     public function events(): HasMany

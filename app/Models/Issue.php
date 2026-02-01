@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\IssueStatus;
 
 class Issue extends Model
 {
     //
-
-    protected $table = 'issue';
 
     protected $fillable = [
         'project_id',
@@ -17,6 +16,10 @@ class Issue extends Model
         'description',
         'status',
         'priority',
+    ];
+
+    protected $casts = [
+        'status' => IssueStatus::class
     ];
 
     /**
