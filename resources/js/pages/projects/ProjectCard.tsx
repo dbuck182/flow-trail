@@ -1,5 +1,4 @@
-import { Project } from "@/types/types";
-import { get } from "http";
+import type { Project } from "@/types/types";
 
 
 type ProjectCardParams =  {

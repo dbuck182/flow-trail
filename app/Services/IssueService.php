@@ -5,25 +5,30 @@ namespace App\Services;
 use App\Models\Issue;
 use App\Models\Event;
 use App\Models\User;
+use App\Models\Project;
 use App\Enums\IssueStatus;
 use Illuminate\Support\Facades\DB;
 
 class IssueService
 {
-    public function createIssue(Project $project, User $creator, array $issue_data, array $event_data): Issue
+    public function createIssue(Project $project, User $user, array $issue_data): Issue
     {
         // logic here
         // Will need to create the new issue
         $created_issue = $project->issues()->create(
-            array_merge($issue_data, [
+            [
             'project_id' => $project->id,
-            'creator_id' => $creator->id,
+            'creator_id' => $user->id,
+            'assignee_id' => $user->id,
+            'title' => $issue_data['title'],
+            'description' => $issue_data['description'],
+            'priority' => $issue_data['priority'],
             'status' => IssueStatus::TODO,
-        ]));
-        $created_event = $creator->events()->create(
-            array_merge($event_data, ['issue_id' => $created_issue->id,
-
-            ])
+    ]);
+        $created_event = $user->events()->create(
+            ['issue_id' => $created_issue->id,
+             'event_type' => 'Issue Creation.'
+            ]
         );
         // Also create an event for this
         // Need to figure out how to get the issue id for this

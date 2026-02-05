@@ -1,10 +1,10 @@
 import { Head, Link } from '@inertiajs/react';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import CreateProjectForm from '@/forms/CreateProjectForm';
 import AppLayout from '@/layouts/app-layout';
 import { projects } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import { Project } from '@/types/types';
-import CreateProjectForm from '@/forms/CreateProjectForm';
+import type { Project } from '@/types/types';
 import ProjectCard from './projects/ProjectCard';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -49,7 +49,7 @@ export default function Projects({project_list}: ProjectProps) {
                         <h1>Description</h1>
                     </div>
                     
-                    {project_list.map((p: any) => (
+                    {project_list.map((p: Project) => (
                     <Link key={p.id}
                     href={`/projects/${p.id}`}>
                         <ProjectCard project={p}/>

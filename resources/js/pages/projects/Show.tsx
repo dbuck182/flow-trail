@@ -1,20 +1,34 @@
-import { Project } from '@/types/types';
+import AppLayout from '@/layouts/app-layout';
+import { projects } from '@/routes';
+import type { BreadcrumbItem } from '@/types/navigation';
+import type { Issue, Project } from '@/types/types';
+import ProjectGrid from './ProjectGrid';
 
 interface ShowProps {
     project: Project;
+    issues: Issue[];
 }
 
-export default function Show({ project }: ShowProps) {
+// COME BACK TO FIX THIS
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Projects',
+        href: projects().url,
+    },
+];
+
+export default function Show({ project, issues }: ShowProps) {
     return (
-        <div>
-            <h1 className="text-3xl font-bold">{project.name}</h1>
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <div className='p-4'>
+            <h1 className="text-3xl font-bold">Project: {project.name}</h1>
 
             <p className="mt-2 text-gray-600">
-                {project.description}
+                Description: {project.description}
             </p>
 
-            <h2 className="mt-6 text-xl font-semibold">Issues</h2>
-
+            <h2 className="mt-6 text-xl font-semibold">Issue Board</h2>
+            <ProjectGrid issues={issues} project={project}/>
             {/* <ul className="mt-2 space-y-2">
                 {project.issues?.map(issue => (
                     <li key={issue.id}>
@@ -23,5 +37,7 @@ export default function Show({ project }: ShowProps) {
                 ))}
             </ul> */}
         </div>
+        </AppLayout>
+        
     );
 }
