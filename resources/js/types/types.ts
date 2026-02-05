@@ -5,6 +5,13 @@ export type Project = {
     description? : string | null
 }
 
+export enum Status {
+    Todo = 'todo',
+    InProgress = 'in progress',
+    Review = 'review',
+    Done = 'done'
+}
+
 export type Issue = {
     id : number,
     project_id: number,
@@ -12,6 +19,6 @@ export type Issue = {
     assignee_id?: number,
     title: string,
     description: string,
-    status: string,
+    status: Status,
     priority: string
 }

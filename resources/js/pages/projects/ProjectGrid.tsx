@@ -1,6 +1,7 @@
 import { PlaceholderPattern } from "@/components/ui/placeholder-pattern";
 import CreateIssueForm from "@/forms/CreateIssueForm";
-import type { Project, Issue } from "@/types/types";
+import { Project, Issue, Status} from "@/types/types";
+import IssueCard from "./Issues/IssueCard";
 
 
 type ProjectGridProps = {
@@ -8,17 +9,25 @@ type ProjectGridProps = {
     issues: Issue[];
 }
 
+
+
+
+
 export default function ProjectGrid({project, issues}: ProjectGridProps) {
+    let sorted_issues : Record<Status, Issue[]> = {[Status.Todo]: [], [Status.InProgress]: [], 'Review': [], 'Done': [] }
+    issues.forEach((i: Issue) => {
+            sorted_issues[i.status].push(i)
+    })
     return (
         <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <CreateIssueForm project_id={project.id}/>
-            {issues.map((i: Issue) => (
-                <h1>{i.title}</h1>
-            ))}
                         <div className="grid auto-rows-min gap-4 md:grid-cols-4">
                             
                             <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border flex flex-col items-center">
                             <h2>Todo</h2>
+                                {sorted_issues[Status.Todo].map((i) => (
+                                    <IssueCard issue={i} />
+                                ))}
                                 {/* <h2 className='text-center'>Add Pro</h2> */}
                                 {/* <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" /> */}
                             </div>
