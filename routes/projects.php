@@ -19,4 +19,8 @@ Route::post('/projects/{project}/issues', [IssueController::class, 'store'])
 
 Route::get('/projects/{project}/issues', [IssueController::class, 'index']);
 
+Route::get('/projects/{project}/issues/{issue}', [IssueController::class, 'show']);
+
+Route::put('/projects/{project}/issues/{issue}', [IssueController::class, 'update']);
+
 });

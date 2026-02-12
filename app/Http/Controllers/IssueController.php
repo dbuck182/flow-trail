@@ -6,6 +6,8 @@ use App\Http\Requests\StoreIssueRequest;
 use Illuminate\Http\Request;
 use App\Services\IssueService;
 use App\Models\Project;
+use Inertia\Inertia;
+use App\Models\Issue;
 
 class IssueController extends Controller
 {
@@ -27,5 +29,13 @@ class IssueController extends Controller
 
     public function index(Project $project) {
         return $project()->issues()->latest()->get();
+    }
+
+
+    public function show(Project $project, Issue $issue) {
+        return Inertia::render('projects/issues/ShowIssue', [
+            'project' => $project,
+            'issue' => $issue
+        ]);
     }
 }
