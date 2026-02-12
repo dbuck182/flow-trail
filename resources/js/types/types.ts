@@ -7,7 +7,7 @@ export type Project = {
 
 export enum Status {
     Todo = 'todo',
-    InProgress = 'in progress',
+    InProgress = 'in-progress',
     Review = 'review',
     Done = 'done'
 }

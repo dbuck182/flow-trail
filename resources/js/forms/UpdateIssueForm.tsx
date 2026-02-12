@@ -1,5 +1,5 @@
+import { Issue, Status } from '@/types/types';
 import { useForm } from '@inertiajs/react';
-
 
 // 'project_id',
 //         'user_id',
@@ -8,21 +8,23 @@ import { useForm } from '@inertiajs/react';
 //         'status',
 //         'priority',
 
-type CreateIssueFormProps = {
+type UpdateIssueFormProps = {
+    issue: Issue;
     project_id: number;
 }
 
 
-export default function CreateIssueForm({project_id}: CreateIssueFormProps) {
-    const { data, setData, post, processing, errors } = useForm({
-        title: '',
-        description: '',
-        priority: 'Low'
+export default function UpdateIssueForm({issue, project_id}: UpdateIssueFormProps) {
+    const { data, setData, put, processing, errors } = useForm({
+        title: issue.title,
+        description: issue.description,
+        priority: issue.priority,
+        status: issue.status
     });
 
     function submit(e: React.SubmitEvent) {
         e.preventDefault();
-        post(`/projects/${project_id}/issues`);
+        put(`/projects/${project_id}/issues/${issue.id}`);
     }
 
     return (
@@ -59,19 +61,26 @@ export default function CreateIssueForm({project_id}: CreateIssueFormProps) {
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
                 </select>
+
+                <label className="block text-sm font-medium">Status</label>
+                <select value={data.status} onChange={e=> setData('status', e.target.value as Status)}>
+                    <option value={Status.Todo}>Todo</option>
+                    <option value={Status.InProgress}>In Progress</option>
+                    <option value={Status.Review}>Review</option>
+                    <option value={Status.Done}>Done</option>
+                </select>
                     
                 {errors.description && (
                     <p className="text-red-500 text-sm">{errors.description}</p>
                 )}
             </div>
-            <h2>Priority selected {data.priority}</h2>
 
             <button
                 type="submit"
                 disabled={processing}
                 className="bg-black text-white px-4 py-2 rounded"
             >
-                Create Issue
+                Update Issue
             </button>
         </form>
     );

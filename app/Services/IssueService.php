@@ -36,6 +36,16 @@ class IssueService
         return $created_issue;
     }
 
+    public function updateIssue(Issue $issue, array $change_data){
+        # look for the differences between the two and then update the status
+        $issue->fill($change_data);
+        if ($issue->isDirty()){
+            return $issue->save();
+        }
+
+        return False;
+    }
+
     public function changeStatus(Issue $issue, IssueStatus $newStatus, User $actor): void
     {
         // logic here

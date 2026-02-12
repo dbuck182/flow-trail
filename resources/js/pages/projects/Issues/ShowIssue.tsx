@@ -1,3 +1,4 @@
+import UpdateIssueForm from '@/forms/UpdateIssueForm';
 import AppLayout from '@/layouts/app-layout';
 import { projects } from '@/routes';
 import type { BreadcrumbItem } from '@/types/navigation';
@@ -29,13 +30,7 @@ export default function ShowIssue({ project, issue }: ShowIssueProps) {
             </p>
 
             <h2 className="mt-6 text-xl font-semibold">Issue Board</h2>
-            {/* <ul className="mt-2 space-y-2">
-                {project.issues?.map(issue => (
-                    <li key={issue.id}>
-                        {issue.title}
-                    </li>
-                ))}
-            </ul> */}
+            <UpdateIssueForm issue={issue} project_id={project.id}/>
         </div>
         </AppLayout>
         
