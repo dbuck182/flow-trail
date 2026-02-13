@@ -1,4 +1,8 @@
 import { useForm } from '@inertiajs/react';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { Select, SelectGroup, SelectItem, SelectTrigger, SelectValue, SelectContent} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 
 // 'project_id',
@@ -26,45 +30,69 @@ export default function CreateIssueForm({project_id}: CreateIssueFormProps) {
     }
 
     return (
-        <form onSubmit={submit} className="space-y-4 max-w-md">
+        <form onSubmit={submit} className="space-y-4 max-w-md border rounded-xl p-4">
             <div>
-                <label className="block text-sm font-medium">Issue Name</label>
-                <input
+                {/* <label className="block text-sm font-medium">Issue Name</label> */}
+                {/* <input
                     type="text"
                     value={data.title}
                     onChange={e => setData('title', e.target.value)}
                     className="border rounded w-full p-2"
-                />
-                {errors.title && (
+                /> */}
+
+                 <Field>
+                    <FieldLabel htmlFor='issuename'>Issue Name</FieldLabel>
+                    <Input
+                    type="text"
+                    value={data.title}
+                    onChange={e => setData('title', e.target.value)}
+                    className="border rounded w-full p-2"
+                    />
+                    <FieldDescription></FieldDescription>
+                </Field>
+                 {errors.title && (
                     <p className="text-red-500 text-sm">{errors.title}</p>
                 )}
+        
             </div>
 
             <div>
-                <label className="block text-sm font-medium">Description</label>
-                <textarea
+                 <Field>
+                    <FieldLabel htmlFor='description'>Description</FieldLabel>
+                    <Textarea
                     value={data.description}
                     onChange={e => setData('description', e.target.value)}
                     className="border rounded w-full p-2"
-                />
+                    />
+                    <FieldDescription></FieldDescription>
+                </Field>
                 {errors.description && (
                     <p className="text-red-500 text-sm">{errors.description}</p>
                 )}
             </div>
 
             <div>
-                <label className="block text-sm font-medium">Priority</label>
-                <select value={data.priority} onChange={e=> setData('priority', e.target.value)}>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                </select>
+                <Field className='w-full max-w-xs'>
+                    <FieldLabel htmlFor='priority'>Priority</FieldLabel>
+                    <Select value={data.priority} onValueChange={value=> setData('priority', value)}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Choose Priority" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="Low">Low</SelectItem>
+                                <SelectItem value="Medium">Medium</SelectItem>
+                                <SelectItem value="High">High</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </Field>
                     
                 {errors.description && (
                     <p className="text-red-500 text-sm">{errors.description}</p>
                 )}
             </div>
-            <h2>Priority selected {data.priority}</h2>
+            {/* <h2>Priority selected {data.priority}</h2> */}
 
             <button
                 type="submit"
