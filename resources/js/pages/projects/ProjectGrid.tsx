@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react";
 import CreateIssueForm from "@/forms/CreateIssueForm";
 import type { Project, Issue} from "@/types/types";
 import { Status} from "@/types/types";
-import IssueCard from "./issues/IssueCard";
+import IssueCard from "@/pages/projects/issues/IssueCard";
 
 type ProjectGridProps = {
     project: Project;
