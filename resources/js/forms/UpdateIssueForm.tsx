@@ -1,5 +1,6 @@
-import { Issue, Status } from '@/types/types';
 import { useForm } from '@inertiajs/react';
+import type { Issue} from '@/types/types';
+import { Status } from '@/types/types';
 
 // 'project_id',
 //         'user_id',

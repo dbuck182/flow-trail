@@ -1,4 +1,4 @@
-import { Issue } from "@/types/types"
+import type { Issue } from "@/types/types"
 
 
 

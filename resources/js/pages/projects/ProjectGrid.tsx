@@ -1,8 +1,8 @@
-import { PlaceholderPattern } from "@/components/ui/placeholder-pattern";
-import CreateIssueForm from "@/forms/CreateIssueForm";
-import { Project, Issue, Status} from "@/types/types";
-import IssueCard from "./Issues/IssueCard";
 import { Link } from "@inertiajs/react";
+import CreateIssueForm from "@/forms/CreateIssueForm";
+import type { Project, Issue} from "@/types/types";
+import { Status} from "@/types/types";
+import IssueCard from "./issues/IssueCard";
 
 type ProjectGridProps = {
     project: Project;
@@ -14,7 +14,7 @@ type ProjectGridProps = {
 
 
 export default function ProjectGrid({project, issues}: ProjectGridProps) {
-    let sorted_issues : Record<Status, Issue[]> = {[Status.Todo]: [], [Status.InProgress]: [], [Status.Review]: [], [Status.Done]: [] }
+    const sorted_issues : Record<Status, Issue[]> = {[Status.Todo]: [], [Status.InProgress]: [], [Status.Review]: [], [Status.Done]: [] }
     issues.forEach((i: Issue) => {
             sorted_issues[i.status].push(i)
     })
