@@ -1,5 +1,4 @@
 import { Head, Link } from '@inertiajs/react';
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import CreateProjectForm from '@/forms/CreateProjectForm';
 import AppLayout from '@/layouts/app-layout';
 import { projects } from '@/routes';

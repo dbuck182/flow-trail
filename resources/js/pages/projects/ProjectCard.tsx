@@ -1,5 +1,5 @@
-import type { Project } from "@/types/types";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import type { Project } from "@/types/types";
 
 type ProjectCardParams =  {
     project: Project;
