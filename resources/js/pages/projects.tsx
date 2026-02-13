@@ -26,29 +26,23 @@ export default function Projects({project_list}: ProjectProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Projects" />
-            <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    <div className="relative aspect-video rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+            <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-8">
+                {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3"> */}
+                    <div className="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border w-full max-w-md p-4">
                         <h2 className='text-center'>Add Project</h2>
-
                         <CreateProjectForm />
                         {/* Make a new modal here that comes up on click */}
                         {/* <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" /> */}
                     </div>
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                    {/* <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                         <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                     </div>
                     <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                         <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                </div>
+                    </div> */}
+                {/* </div> */}
                 <h1 className="text-3xl">Projects: </h1>
                 <div className='flex flex-col gap-1'>
-                    <div className='flex flex-row gap-3'>
-                        <h1>Name</h1>
-                        <h1>Description</h1>
-                    </div>
-                    
                     {project_list.map((p: Project) => (
                     <Link key={p.id}
                     href={`/projects/${p.id}`}>

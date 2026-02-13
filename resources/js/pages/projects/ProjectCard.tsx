@@ -1,5 +1,5 @@
 import type { Project } from "@/types/types";
-
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 
 type ProjectCardParams =  {
     project: Project;
@@ -8,9 +8,9 @@ type ProjectCardParams =  {
 
 export default function ProjectCard({project} : ProjectCardParams) {
     return (
-        <div className='border flex flex-row gap-3'>
-            <h1>{project.name}</h1>
-            <h1>{project.description}</h1>
-        </div>
+            <Card className="w-full max-w-sm p-3 hover:border-primary">
+                <CardTitle className="">{project.name}</CardTitle>
+                <CardDescription>{project.description}</CardDescription>
+            </Card>
     )
 }
