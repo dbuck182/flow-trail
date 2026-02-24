@@ -1,6 +1,9 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { dashboard, login, register } from '@/routes';
 import type { SharedData } from '@/types';
+import profile from './settings/profile';
+
+
 
 export default function Welcome({
     canRegister = true,
@@ -22,12 +25,18 @@ export default function Welcome({
                 <header className="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
                     <nav className="flex items-center justify-end gap-4">
                         {auth.user ? (
+                            <>
                             <Link
                                 href={dashboard()}
                                 className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                             >
                                 Dashboard
                             </Link>
+                            <Link href='/settings/profile' className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
+                                
+                                Profile
+                            </Link>
+                            </>
                         ) : (
                             <>
                                 <Link
@@ -49,12 +58,12 @@ export default function Welcome({
                     </nav>
                 </header>
                 <div className="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
-                    <main className="flex w-full max-w-[335px] flex-col-reverse lg:max-w-4xl lg:flex-row">
-                        <div className='text-center py-10 items-center'>
-                            <h1 className='text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500'>
+                    <main>
+                        <div className='text-center py-10'>
+                            <h1 className='text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500'>
                             Flow Trail
                         </h1>
-                        <p className="mt-2 text-sm text-slate-500">The simplest workflow management tool.</p>
+                        <p className="mt-2 text-xl text-slate-500">The simplest workflow management tool.</p>
                         </div>
                     </main>
                 </div>
