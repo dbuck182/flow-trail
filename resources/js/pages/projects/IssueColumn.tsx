@@ -1,4 +1,5 @@
 import { useDroppable } from "@dnd-kit/react";
+import {CollisionPriority} from '@dnd-kit/abstract';
 
 interface IssueColumnProps {
     id: string;
@@ -7,14 +8,24 @@ interface IssueColumnProps {
 
 
 export default function IssueColumn({id, children}: IssueColumnProps){
-    const {ref} = useDroppable({
+    const {isDropTarget, ref} = useDroppable({
         id,
+        type: 'column',
+        accept: 'item',
+        collisionPriority: CollisionPriority.Low
     });
-
+    const style = {
+    minHeight: '200px', // Prevents collapse
+    width: '100%',      // Keeps width consistent
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    padding: '10px',
+};
     return (
-        <div ref={ref} className="relative rounded-xl border border-sidebar-border/70 dark:border-sidebar-border flex flex-col items-center p-2 gap-1">
+        <div className="relative rounded-xl border border-sidebar-border/70 dark:border-sidebar-border flex flex-col items-center p-2 gap-1">
             <h2>{id}</h2>
-            <div className='flex flex-col'>
+            <div ref={ref} className='Column' style={style}>
                     {children}
             </div>
         </div>
