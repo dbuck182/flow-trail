@@ -28,7 +28,7 @@ export default function Projects({project_list}: ProjectProps) {
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-8">
                 {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3"> */}
                     <div className="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border w-full max-w-md p-4">
-                        <h2 className='text-center'>Add Project</h2>
+                        <h1 className='text-xl text-center'>Create Project</h1>
                         <CreateProjectForm />
                         {/* Make a new modal here that comes up on click */}
                         {/* <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" /> */}
