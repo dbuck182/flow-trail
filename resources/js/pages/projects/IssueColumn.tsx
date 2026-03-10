@@ -12,20 +12,18 @@ export default function IssueColumn({id, children}: IssueColumnProps){
         id,
         type: 'column',
         accept: 'item',
-        collisionPriority: CollisionPriority.Low
+        collisionPriority: CollisionPriority.High
     });
     const style = {
     minHeight: '200px', // Prevents collapse
     width: '100%',      // Keeps width consistent
-    display: 'flex',
-    flexDirection: 'column',
     gap: '10px',
     padding: '10px',
 };
     return (
         <div className="relative rounded-xl border border-sidebar-border/70 dark:border-sidebar-border flex flex-col items-center p-2 gap-1">
             <h2>{id}</h2>
-            <div ref={ref} className='Column' style={style}>
+            <div ref={ref} className='Column border' style={style}>
                     {children}
             </div>
         </div>

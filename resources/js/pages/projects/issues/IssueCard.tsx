@@ -20,13 +20,13 @@ export default function IssueCard({issue, index ,column}: IssueCardProps) {
         group: column
     })
     return (
-        <div ref={ref} data-dragging={isDragging}>
-            <div className='border rounded p-1'>
+        <div ref={ref} data-dragging={isDragging} className="border rounded p-1 flex flex-row gap-3">
                 <h2>{issue.title}</h2>
-            </div>
-        {/* <Link key={issue.id}
+                <Link key={issue.id} className="ml-auto"
+                
                 href={`/projects/${issue.project_id}/issues/${issue.id}`}>
-        </Link> */}
+                    Edit
+                </Link>
         </div>
         
     )

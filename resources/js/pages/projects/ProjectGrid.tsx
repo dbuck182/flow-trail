@@ -6,17 +6,14 @@ import IssueCard from "./issues/IssueCard";
 import {useDraggable} from '@dnd-kit/react';
 import IssueColumn from "./IssueColumn";
 import { DragDropProvider } from "@dnd-kit/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {move} from '@dnd-kit/helpers';
+import { router } from '@inertiajs/react'
 
 type ProjectGridProps = {
     project: Project;
     issues: Issue[];
 }
-
-
-
-
 
 export default function ProjectGrid({project, issues}: ProjectGridProps) {
     const [columns, setColumns] = useState<Record<Status, Issue[]>>(() => {
@@ -24,44 +21,64 @@ export default function ProjectGrid({project, issues}: ProjectGridProps) {
         issues.forEach((issue: Issue) => initial[issue.status].push(issue));
         return initial;
     })
+    const previousItems = useRef(columns);
     return (
         <DragDropProvider
         onDragOver={(event) => {
         setColumns((columns) => move(columns, event));
       }}
-        >
+      onDragEnd={(event) => {
+        const {source, target} = event.operation;
+
+        if (event.canceled) {
+          if (source?.type === 'item') {
+            setColumns(previousItems.current);
+          }
+
+          return;
+        }
+
+        const issueId = source?.id;
+        const newStatus = target?.id;
+        const newIndex = target?.data;
+
+            if (newStatus){
+                router.put(`/projects/${project.id}/issues/${issueId}`, {'status': newStatus}, 
+                    {
+                onSuccess: (page) => {
+                // Runs if the backend returns a 200/303 redirect
+                // 'page' contains the updated props from Laravel
+                console.log("Successfully moved the issue!");
+                },
+                onError: (errors) => {
+                // Runs if Laravel validation fails (422 Unprocessable Content)
+                console.log("Validation errors:", errors);
+                setColumns(previousItems.current);
+                // This is where you would roll back your Kanban state!
+                },
+                onFinish: () => {
+                // Runs regardless of success or failure (like 'finally')
+                // Good for turning off a loading spinner
+                },
+                preserveScroll: true, // Prevents the page from jumping to the top
+            }
+                )
+            }
+
+
+      }}>
         <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                         <div className="grid auto-rows-min gap-4 md:grid-cols-4">
                             {
                                 Object.entries(columns).map(([column, issues]) => (
                                     <IssueColumn id={column} key={column}>
                                 {issues.map((i, index) => (
-                                    <IssueCard issue={i} index={index} column={Status.Todo}/>
+                                    <IssueCard issue={i} index={index} column={i.status}/>
                                 ))}
-                            </IssueColumn>
+                                    </IssueColumn>
                                 ))
                             }
                             
-                            {/* {sorted_issues[Status.Todo].map((i) => (
-                                    <IssueCard issue={i} />
-                                ))} */}
-                            
-                            {/* <IssueColumn id='In Progress'>
-                                {sorted_issues[Status.InProgress].map((i, index) => (
-                                    <IssueCard issue={i} index={index} column={Status.Todo}/>
-                                ))}
-                            </IssueColumn>
-                            
-                            <IssueColumn id='Review'>
-                                {sorted_issues[Status.Review].map((i) => (
-                                    <IssueCard issue={i} index={index} column={Status.Review}/>
-                                ))}
-                            </IssueColumn>
-                            <IssueColumn id='Done'>
-                                {sorted_issues[Status.Done].map((i) => (
-                                    <IssueCard issue={i} />
-                                ))}
-                            </IssueColumn> */}
                         </div>
                         <CreateIssueForm project_id={project.id}/>
                         {/* <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
