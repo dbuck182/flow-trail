@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Enums\IssueStatus;
+use Illuminate\Database\Eloquent\Model;
 
 class Issue extends Model
 {
@@ -20,7 +20,7 @@ class Issue extends Model
     ];
 
     protected $casts = [
-        'status' => IssueStatus::class
+        'status' => IssueStatus::class,
     ];
 
     /**
@@ -39,12 +39,11 @@ class Issue extends Model
         return $this->belongsTo(User::class);
     }
 
-     /**
+    /**
      * An issue has many events.
      */
     public function events()
     {
         return $this->hasMany(Event::class);
     }
-
 }

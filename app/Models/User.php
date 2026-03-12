@@ -4,11 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -55,7 +54,6 @@ class User extends Authenticatable
     /**
      * Get the Projects associated with the user
      */
-
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class, 'owner_id');
@@ -73,11 +71,8 @@ class User extends Authenticatable
     /**
      * Get the events assocaited with the user
      */
-
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
     }
-
-
 }

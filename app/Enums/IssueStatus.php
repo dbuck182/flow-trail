@@ -9,17 +9,15 @@ enum IssueStatus: string
     case REVIEW = 'review';
     case DONE = 'done';
 
-
     public function allowedTransition(): array
     {
-        return match ($this){
+        return match ($this) {
             self::TODO => [self::IN_PROGRESS],
             self::IN_PROGRESS => [self::TODO, self::REVIEW],
             self::REVIEW => [self::IN_PROGRESS, self::DONE],
             self::DONE => [self::REVIEW],
         };
     }
-
 
     public function canTransitionTo(self $next): bool
     {

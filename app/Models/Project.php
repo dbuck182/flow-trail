@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-
-protected $fillable = [
+    protected $fillable = [
         'name',
         'description',
     ];
@@ -27,5 +26,4 @@ protected $fillable = [
     {
         return $this->hasMany(Issue::class);
     }
-
 }

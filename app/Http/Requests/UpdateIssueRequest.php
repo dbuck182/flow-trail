@@ -11,7 +11,7 @@ class UpdateIssueRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return TRUE;
+        return true;
     }
 
     /**

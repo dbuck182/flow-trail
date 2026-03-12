@@ -13,12 +13,12 @@ class Event extends Model
         'event_type',
         'old_value',
         'new_value',
-        'note'
+        'note',
     ];
 
     protected $casts = [
         'old_value' => 'array',
-        'new_value' => 'array'
+        'new_value' => 'array',
     ];
 
     /**
@@ -40,10 +40,8 @@ class Event extends Model
     /**
      * An event belongs to an assignee(user).
      */
-
     public function assignee()
     {
         return $this->belongsTo(User::class, 'assignee_id');
     }
-
 }

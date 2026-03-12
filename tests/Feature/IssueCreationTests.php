@@ -1,11 +1,9 @@
 <?php
 
-use App\Models\User;
 use App\Models\Project;
-use Mockery\MockInterface;
+use App\Models\User;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
-
 
 test('Creating a new Issue', function () {
 
