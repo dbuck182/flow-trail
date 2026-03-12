@@ -1,8 +1,8 @@
-// import type { SVGAttributes } from 'react';
+import type { SVGAttributes } from 'react';
 
-// export default function AppLogoIcon(props: SVGAttributes<SVGElement>) {
-//     return (
+export default function AppLogoIcon(props: SVGAttributes<SVGElement>) {
+    return (
         
-//         <></>
-//     );
-// }
+        <>{props}</>
+    );
+}
