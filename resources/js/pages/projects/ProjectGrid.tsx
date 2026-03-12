@@ -1,14 +1,12 @@
-import { Link } from "@inertiajs/react";
+import {move} from '@dnd-kit/helpers';
+import { DragDropProvider } from "@dnd-kit/react";
+import { router } from '@inertiajs/react'
+import { useRef, useState } from "react";
 import CreateIssueForm from "@/forms/CreateIssueForm";
 import type { Project, Issue} from "@/types/types";
 import { Status} from "@/types/types";
-import IssueCard from "./issues/IssueCard";
-import {useDraggable} from '@dnd-kit/react';
 import IssueColumn from "./IssueColumn";
-import { DragDropProvider } from "@dnd-kit/react";
-import { useRef, useState } from "react";
-import {move} from '@dnd-kit/helpers';
-import { router } from '@inertiajs/react'
+import IssueCard from "./issues/IssueCard";
 
 type ProjectGridProps = {
     project: Project;
@@ -40,12 +38,11 @@ export default function ProjectGrid({project, issues}: ProjectGridProps) {
 
         const issueId = source?.id;
         const newStatus = target?.id;
-        const newIndex = target?.data;
 
             if (newStatus){
                 router.put(`/projects/${project.id}/issues/${issueId}`, {'status': newStatus}, 
                     {
-                onSuccess: (page) => {
+                onSuccess: () => {
                 // Runs if the backend returns a 200/303 redirect
                 // 'page' contains the updated props from Laravel
                 console.log("Successfully moved the issue!");

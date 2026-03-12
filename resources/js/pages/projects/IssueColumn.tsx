@@ -1,5 +1,5 @@
-import { useDroppable } from "@dnd-kit/react";
 import {CollisionPriority} from '@dnd-kit/abstract';
+import { useDroppable } from "@dnd-kit/react";
 
 interface IssueColumnProps {
     id: string;
@@ -8,7 +8,7 @@ interface IssueColumnProps {
 
 
 export default function IssueColumn({id, children}: IssueColumnProps){
-    const {isDropTarget, ref} = useDroppable({
+    const {ref} = useDroppable({
         id,
         type: 'column',
         accept: 'item',

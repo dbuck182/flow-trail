@@ -1,7 +1,7 @@
-import type { Issue } from "@/types/types"
+import type {UniqueIdentifier} from "@dnd-kit/core"
 import {useSortable} from '@dnd-kit/react/sortable'
 import { Link } from "@inertiajs/react";
-import {UniqueIdentifier} from "@dnd-kit/core"
+import type { Issue } from "@/types/types"
 
 
 type IssueCardProps = {
