@@ -13,7 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-type ProjectProps = {
+interface ProjectProps {
     project_list: Project[];
 }
 
