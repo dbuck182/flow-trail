@@ -36,7 +36,7 @@ export default function Projects({project_list}: ProjectProps) {
                     </div> */}
                 {/* </div> */}
                 <div className='min-w-100'>
-                    <h1 className="text-3xl">Projects: </h1>
+                    <h1 className="text-3xl p-2">Projects: </h1>
                     <div className='flex flex-col gap-1'>
                         {project_list.map((p: Project) => (
                         <Link key={p.id}

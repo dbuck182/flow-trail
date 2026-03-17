@@ -65,16 +65,13 @@ export default function ProjectGrid({project, issues}: ProjectGridProps) {
 
 
       }}>
-        <Link href={show.url(project.id)}>
-        Create New Issue
-        </Link>
         <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                         <div className="grid auto-rows-min gap-4 md:grid-cols-4">
                             {
                                 Object.entries(columns).map(([column, issues]) => (
                                     <IssueColumn id={column} key={column}>
                                 {issues.map((i, index) => (
-                                    <IssueCard issue={i} index={index} column={i.status}/>
+                                    <IssueCard key={i.id} issue={i} index={index} column={i.status}/>
                                 ))}
                                     </IssueColumn>
                                 ))
@@ -87,6 +84,10 @@ export default function ProjectGrid({project, issues}: ProjectGridProps) {
                             <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                         </div> */}
         </div>
+        <Link className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex justify-center'href={show.url(project.id)}>
+            Create New Issue
+        </Link>
         </DragDropProvider>
+        
     )
 }
