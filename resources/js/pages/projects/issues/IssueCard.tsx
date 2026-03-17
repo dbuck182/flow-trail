@@ -21,7 +21,7 @@ export default function IssueCard({issue, index ,column, key}: IssueCardProps) {
         group: column
     })
     return (
-        <div key={issue.id} ref={ref} data-dragging={isDragging} className="border rounded p-1 flex flex-row gap-3">
+        <div key={key} ref={ref} data-dragging={isDragging} className="border rounded p-1 flex flex-row gap-3">
                 <h2>{issue.title}</h2>
                 <Link key={issue.id} className="ml-auto"
                 

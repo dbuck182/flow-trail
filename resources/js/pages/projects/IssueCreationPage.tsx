@@ -1,9 +1,9 @@
+import { Head } from "@inertiajs/react";
 import CreateIssueForm from "@/forms/CreateIssueForm";
 import AppLayout from "@/layouts/app-layout";
-import { Project } from "@/types/types";
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import { Head } from "@inertiajs/react";
+import type { Project } from "@/types/types";
 
 interface IssueCreationProps {
     project: Project

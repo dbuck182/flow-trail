@@ -2,12 +2,11 @@ import {move} from '@dnd-kit/helpers';
 import { DragDropProvider } from "@dnd-kit/react";
 import { Link, router } from '@inertiajs/react'
 import { useRef, useState } from "react";
-import CreateIssueForm from "@/forms/CreateIssueForm";
+import { show } from '@/routes/createissue';
 import type { Project, Issue} from "@/types/types";
 import { Status} from "@/types/types";
 import IssueColumn from "./IssueColumn";
 import IssueCard from "./issues/IssueCard";
-import { show } from '@/routes/createissue';
 
 type ProjectGridProps = {
     project: Project;
