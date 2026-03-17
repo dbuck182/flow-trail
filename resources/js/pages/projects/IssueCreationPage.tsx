@@ -13,13 +13,20 @@ const breadcrumbs: BreadcrumbItem[] = [
         title: 'Create New Issue',
         href: dashboard().url,
     },
+    {
+        title: 'Back to Project',
+        href: dashboard().url
+    }
 ];
 
 export default function IssueCreationPage({project}: IssueCreationProps){
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
-            <CreateIssueForm project_id={project.id}/>
+            <Head title="Create Issue" />
+            <div className="flex justify-center items-center h-screen">
+                <CreateIssueForm project_id={project.id}/>
+            </div>
+            
         </AppLayout>
     )
 }

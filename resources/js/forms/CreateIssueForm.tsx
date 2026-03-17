@@ -30,7 +30,7 @@ export default function CreateIssueForm({project_id}: CreateIssueFormProps) {
     }
 
     return (
-        <form onSubmit={submit} className="space-y-4 max-w-md border rounded-xl p-4">
+        <form onSubmit={submit} className="space-y-4 max-w-md border rounded-xl p-4 w-screen">
             <div>
                 <h1 className='flex text-xl justify-center'>Create Issue</h1>
                 {/* <label className="block text-sm font-medium">Issue Name</label> */}
