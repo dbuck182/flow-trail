@@ -1,6 +1,6 @@
 # flow-trail
 
-A simple workflow tool for use in my everyday. Allows users to create projects and keep track of them through tasks. I use this to keep track of everything I want to get done.
+A simple workflow tool for use in my everyday. Allows users to create projects(Kanban boards) and keep track of them through tasks. I use this to keep track of everything I want to get done.
 
 Tech Stack: Laravel, React (Typescript), InertiaJs, dndkit for creating a drag and drop.
 
