@@ -2,6 +2,8 @@
 
 A simple workflow tool for use in my everyday. Allows users to create projects(Kanban boards) and keep track of them through tasks. I use this to keep track of everything I want to get done.
 
+In Progress: Collaborative Kanban boards -> using Laravel Reverb and websockets
+
 Tech Stack: Laravel, React (Typescript), InertiaJs, dndkit for creating a drag and drop.
 
 
