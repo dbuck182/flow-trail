@@ -8,9 +8,10 @@ type IssueCardProps = {
     issue: Issue;
     column: UniqueIdentifier;
     index: number;
+    key: number;
 }
 
-export default function IssueCard({issue, index ,column}: IssueCardProps) {
+export default function IssueCard({issue, index ,column, key}: IssueCardProps) {
     // Just the issue id for now
     const {ref, isDragging} = useSortable({
         id: issue.id,
@@ -20,7 +21,7 @@ export default function IssueCard({issue, index ,column}: IssueCardProps) {
         group: column
     })
     return (
-        <div ref={ref} data-dragging={isDragging} className="border rounded p-1 flex flex-row gap-3">
+        <div key={key} ref={ref} data-dragging={isDragging} className="border rounded p-1 flex flex-row gap-3">
                 <h2>{issue.title}</h2>
                 <Link key={issue.id} className="ml-auto"
                 

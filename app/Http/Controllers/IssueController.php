@@ -50,6 +50,6 @@ class IssueController extends Controller
             $request->validated(),
         );
 
-        return response('Issue Updated', 200);
+        return redirect()->back();
     }
 }

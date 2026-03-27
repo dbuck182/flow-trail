@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\IssueCreationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -14,6 +15,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/projects', [ProjectController::class, 'index'])
         ->name('projects');
+    
+    Route::get('/projects/{project}/createissue', [IssueCreationController::class, 'show'])
+        ->name('createissue.show');
 
     Route::post('/projects/{project}/issues', [IssueController::class, 'store'])
         ->name('issues.store');

@@ -1,8 +1,8 @@
 import {move} from '@dnd-kit/helpers';
 import { DragDropProvider } from "@dnd-kit/react";
-import { router } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import { useRef, useState } from "react";
-import CreateIssueForm from "@/forms/CreateIssueForm";
+import { show } from '@/routes/createissue';
 import type { Project, Issue} from "@/types/types";
 import { Status} from "@/types/types";
 import IssueColumn from "./IssueColumn";
@@ -70,18 +70,23 @@ export default function ProjectGrid({project, issues}: ProjectGridProps) {
                                 Object.entries(columns).map(([column, issues]) => (
                                     <IssueColumn id={column} key={column}>
                                 {issues.map((i, index) => (
-                                    <IssueCard issue={i} index={index} column={i.status}/>
+                                    <IssueCard key={i.id} issue={i} index={index} column={i.status}/>
                                 ))}
                                     </IssueColumn>
                                 ))
                             }
                             
                         </div>
-                        <CreateIssueForm project_id={project.id}/>
+                        
+                        {/* <CreateIssueForm project_id={project.id}/> */}
                         {/* <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                             <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                         </div> */}
         </div>
+        <Link className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex justify-center'href={show.url(project.id)}>
+            Create New Issue
+        </Link>
         </DragDropProvider>
+        
     )
 }
