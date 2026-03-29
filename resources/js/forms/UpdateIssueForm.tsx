@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import type { Issue} from '@/types/types';
 import { Status } from '@/types/types';
 
@@ -83,6 +83,16 @@ export default function UpdateIssueForm({issue, project_id}: UpdateIssueFormProp
             >
                 Update Issue
             </button>
+
+            <Link 
+                
+                method="delete" 
+                as="button" 
+                type="button"
+                className="bg-black text-white px-4 py-2 rounded"
+            >
+            Delete Issue
+            </Link>
         </form>
     );
 }

@@ -48,6 +48,11 @@ class IssueService
         return false;
     }
 
+    public function deleteIssue(Issue $issue)
+    {
+        $issue->delete();
+    }
+
     public function changeStatus(Issue $issue, IssueStatus $newStatus, User $actor): void
     {
         // logic here

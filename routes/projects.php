@@ -27,5 +27,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/projects/{project}/issues/{issue}', [IssueController::class, 'show']);
 
     Route::put('/projects/{project}/issues/{issue}', [IssueController::class, 'update']);
-
+    Route::delete('/projects/{project}/issues/{issue}', [IssueController::class, 'delete']);
 });
