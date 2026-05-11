@@ -3,6 +3,7 @@
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\IssueCreationController;
+use App\Http\Controllers\ProjectInvitationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -28,4 +29,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::put('/projects/{project}/issues/{issue}', [IssueController::class, 'update']);
     Route::delete('/projects/{project}/issues/{issue}', [IssueController::class, 'delete']);
+
+    # Routes for Project Invitiations
+    Route::get('/projects/{project}/invite', [ProjectInvitationController::class, 'create'])
+        ->name('project.invitations.create');
+
+    Route::post('/projects/{project}/invite', [ProjectInvitiationController::class, 'store'])
+        ->name('project.invitiations.store');
 });

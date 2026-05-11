@@ -26,4 +26,12 @@ class Project extends Model
     {
         return $this->hasMany(Issue::class);
     }
+
+    /**
+     * A project has a many to many relationship with users
+     */
+    public function members()
+    {
+        return $this->belongsToMany(User::class, 'projects_users')->withPivot('role');
+    }
 }
