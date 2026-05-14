@@ -34,6 +34,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/projects/{project}/invite', [ProjectInvitationController::class, 'create'])
         ->name('project.invitations.create');
 
-    Route::post('/projects/{project}/invite', [ProjectInvitiationController::class, 'store'])
-        ->name('project.invitiations.store');
+    Route::post('/projects/{project}/invite', [ProjectInvitationController::class, 'store'])
+        ->name('project.invitations.store');
+    
+    Route::get('/invites', [ProjectInvitationController::class, 'index'])
+        ->name('invites.index');
 });

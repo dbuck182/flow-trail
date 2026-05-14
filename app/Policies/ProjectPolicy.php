@@ -21,7 +21,8 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project): bool
     {
-        return $project->members->contains($user) || $project->user == $user;
+        return true;
+        #return $project->members->contains($user) || $project->user == $user;
         
     }
 
@@ -38,7 +39,8 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project): bool
     {
-        return $project->members->contains($user) || $project->user == $user;;
+        return true;
+        #return $project->members->contains($user) || $project->user == $user;;
 
     }
 
@@ -47,7 +49,8 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project): bool
     {
-        return $project->members->contains($user);
+        return true;
+        #return $project->members->contains($user);
     }
 
     /**
@@ -55,7 +58,8 @@ class ProjectPolicy
      */
     public function restore(User $user, Project $project): bool
     {
-        return $project->members->contains($user);
+        return true;
+        #return $project->members->contains($user);
     }
 
     /**
@@ -63,6 +67,7 @@ class ProjectPolicy
      */
     public function forceDelete(User $user, Project $project): bool
     {
-        return $project->members->contains($user);
+        return true;
+        #return $project->members->contains($user);
     }
 }

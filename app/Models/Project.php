@@ -34,4 +34,9 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class, 'projects_users')->withPivot('role');
     }
+
+    public function invites()
+    {
+        return $this->hasMany(ProjectInvite::class);
+    }
 }

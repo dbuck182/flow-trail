@@ -83,4 +83,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Project::class, 'projects_users')->withPivot('role');
     }
+
+    public function incomingInvites()
+    {
+        return $this->hasMany(ProjectInvite::class, 'email', 'email');
+    }
 }

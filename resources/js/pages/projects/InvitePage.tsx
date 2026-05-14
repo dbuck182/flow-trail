@@ -3,8 +3,8 @@ import AppLayout from '@/layouts/app-layout';
 import { projects } from '@/routes';
 import type { BreadcrumbItem } from '@/types/navigation';
 import type { Issue, Project } from '@/types/types';
-import { useForm } from '@inertiajs/react'
-
+import { useForm, Form } from '@inertiajs/react';
+import { store } from "@/actions/App/Http/Controllers/ProjectInvitationController";
 
 interface InvitePageProps {
     project: Project;
@@ -24,23 +24,24 @@ export default function InvitePage({ project }: InvitePageProps) {
         email: '',
     });
 
-    const submit = (e : React.SubmitEvent) => {
-        e.preventDefault();
+    // const submit = (e : React.SubmitEvent) => {
+    //     e.preventDefault();
         
-        // 2. Send the POST request to your Laravel route
-        post(route('projects.invitations.store', project.id), {
-            onSuccess: () => reset(), // Clear the form on success
-        });
-    };
+    //     // 2. Send the POST request to your Laravel route
+    //     store(project.id}), {
+    //         onSuccess: () => reset(), // Clear the form on success
+    //     });
+    // };
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <form onSubmit={submit} className="max-w-md space-y-4">
+            <Form action={store(project.id)} className="max-w-md space-y-4">
             <div>
                 <label className="block text-sm font-medium text-gray-700">
                     Invite by Email
                 </label>
                 <input
                     type="email"
+                    name="email"
                     value={data.email}
                     onChange={e => setData('email', e.target.value)}
                     placeholder="teammate@example.com"
@@ -60,7 +61,7 @@ export default function InvitePage({ project }: InvitePageProps) {
             >
                 {processing ? 'Sending...' : 'Send Invitation'}
             </button>
-        </form>
+        </Form>
         </AppLayout>
         
     );
