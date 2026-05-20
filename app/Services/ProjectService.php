@@ -17,6 +17,11 @@ class ProjectService
             'description' => $data['description'],
         ]);
 
+        # also need to add user as admin
+        $user->mem_projects()->attach($new_project->id, ['role' => 'admin']);
+        $user->mem_projects()->attach($new_project->id, ['role' => 'owner']);
+        $user->mem_projects()->attach($new_project->id, ['role' => 'member']);
+
         return $new_project;
     }
 
