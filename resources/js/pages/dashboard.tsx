@@ -1,9 +1,10 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 import type { invite } from '@/types/types';
+import { accept, deny } from "@/actions/App/Http/Controllers/ProjectInvitationController";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -26,15 +27,23 @@ export default function Dashboard({invites}: DashboardProps) {
                         {/* <h2 className='text-center'>Add Pro</h2> */}
                         {
                             invites.map((i: invite) => (
-                                <div>
-                                <h1>
-                                    {i.email}
-                                </h1>
+                                <div className="p-4 border">
+                                    <h1>
+                                        {i.email}
+                                    </h1>
+                                    <div className='flex flex-row gap-2'>
+                                        <Link href={accept(i.token)} method='post' as='button' type='button' className='border'>
+                                            Accept
+                                        </Link>
+                                        <Link href={deny(i.token)} method='post' as='button' type='button' className='border'>
+                                            Deny
+                                        </Link>
+                                    </div>
+                                    
                                 </div>
 
                             ))
                         }
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                     </div>
                     <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                         <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />

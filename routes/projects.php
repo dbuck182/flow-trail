@@ -39,4 +39,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/invites', [ProjectInvitationController::class, 'index'])
         ->name('invites.index');
+
+    Route::post('/invites/{projectInvite}/accept', [ProjectInvitationController::class, 'accept'])
+        ->name('invites.accept');
+    
+    Route::post('/invites/{projectInvite}/deny', [ProjectInvitationController::class, 'deny'])
+        ->name('invites.deny');
 });
