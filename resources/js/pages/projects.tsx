@@ -19,8 +19,9 @@ interface ProjectProps {
 
 export default function Projects({project_list}: ProjectProps) {
 
-    // Probably a useEffect here to grab all projects which belong to me
-
+    // Inertia loads the projects into props but we need to sort them so there is only one of each project
+    //
+    // project_list = project_list.
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

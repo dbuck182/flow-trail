@@ -6,6 +6,7 @@ import ProjectGrid from './ProjectGrid';
 import { Link } from '@inertiajs/react';
 import InviteDialog from './InviteDialog';
 import { useState } from 'react';
+import { useEcho } from "@laravel/echo-react";
 
 interface ShowProps {
     project: Project;
@@ -20,9 +21,21 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+
+
 export default function Show({ project, issues }: ShowProps) {
 
+    
+
     const [showInviteModal, setShowInviteModal] = useState(true);
+
+    useEcho(
+    `projects.${project.id}`,
+    "OpenedProject",
+    (e) => {
+        console.log(e);
+    },
+    );
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <div className='p-4 flex flex-col'>

@@ -9,20 +9,20 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Project;
+use App\Models\Issue;
 
-class OpenedProject implements ShouldBroadcast
+class IssueCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public Project $project)
+    public function __construct(public Issue $issue, public int $userId)
     {
         //
     }
- 
+
     /**
      * Get the channels the event should broadcast on.
      *
@@ -31,7 +31,7 @@ class OpenedProject implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('projects.'.$this->project->id),
+            new PrivateChannel('channel-name'),
         ];
     }
 }

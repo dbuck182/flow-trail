@@ -8,6 +8,7 @@ use App\Models\Issue;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Events\IssueCreated;
 
 class IssueService
 {
@@ -25,12 +26,14 @@ class IssueService
                 'priority' => $issue_data['priority'],
                 'status' => IssueStatus::TODO,
             ]);
-        $created_event = $user->events()->create(
-            ['issue_id' => $created_issue->id,
-                'event_type' => 'Issue Creation.',
-            ]
-        );
-
+        // $created_event = $user->events()->create(
+        //     ['issue_id' => $created_issue->id,
+        //         'event_type' => 'Issue Creation.',
+        //     ]
+        // );
+        
+        $user_id = $user->id;
+        IssueCreated::dispatch($created_issue, $user_id);
         // Also create an event for this
         // Need to figure out how to get the issue id for this
         // Then save it to the database
@@ -58,24 +61,24 @@ class IssueService
         // logic here
 
         // Make sure that this transition is allowed
-        if (! $issue->status->canTransitionTo($newStatus)) {
-            throw ValidationException::withMessages([
-                'status' => "Cannot transition from {$issue->status->value} to {$newStatus->value}",
-            ]);
+        // if (! $issue->status->canTransitionTo($newStatus)) {
+        //     throw ValidationException::withMessages([
+        //         'status' => "Cannot transition from {$issue->status->value} to {$newStatus->value}",
+        //     ]);
 
-        }
+        // }
         // If so then update the issue and create an event for this change
-        DB::transaction(function () {
-            $issue->update(['status' => $newStatus]);
+        // DB::transaction(function () {
+        //     $issue->update(['status' => $newStatus]);
 
-            $actor->events()->create([
-                'issue_id' => $issue->id,
-                'event_type' => 'status_changed',
-                'old_value' => ['status' => $oldStatus->value],
-                'new_value' => ['status' => $newStatus->value],
-            ]);
+        //     $actor->events()->create([
+        //         'issue_id' => $issue->id,
+        //         'event_type' => 'status_changed',
+        //         'old_value' => ['status' => $oldStatus->value],
+        //         'new_value' => ['status' => $newStatus->value],
+        //     ]);
 
-        });
+        // });
 
     }
 }
