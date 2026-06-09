@@ -5,8 +5,10 @@ import type { Issue, Project } from '@/types/types';
 import ProjectGrid from './ProjectGrid';
 import { Link } from '@inertiajs/react';
 import InviteDialog from './InviteDialog';
-import { useState } from 'react';
-import { useEcho } from "@laravel/echo-react";
+import { useEffect, useState } from 'react';
+import { useEcho, useEchoPresence } from "@laravel/echo-react";
+ import { useConnectionStatus } from "@laravel/echo-react";
+import Echo from 'laravel-echo';
 
 interface ShowProps {
     project: Project;
@@ -27,15 +29,51 @@ export default function Show({ project, issues }: ShowProps) {
 
     
 
-    const [showInviteModal, setShowInviteModal] = useState(true);
+    const [onlineUser, setOnlineUsers] = useState([]);
 
-    useEcho(
+    const {channel, leave} = useEchoPresence(
     `projects.${project.id}`,
     "OpenedProject",
     (e) => {
         console.log(e);
     },
     );
+
+    useEffect(() => {
+        
+        const presenceChannel = channel();
+
+        presenceChannel.here((users) => {
+            console.log(users)
+            setOnlineUsers(users)
+        });
+
+        presenceChannel.joining((user) => {
+            setOnlineUsers((prev) => {
+                if (prev.some((u) => u.email === user.email)) return prev;
+                return [...prev, user];
+            });
+        });
+        
+        presenceChannel.leaving((user) => {
+            console.log(user.name + " Left")
+            setOnlineUsers((prev) => prev.filter((u) => u.name !== user.name))
+        })
+
+        presenceChannel.error((error) => {
+            console.error(error)
+        })
+
+        return () => {leave()};
+       
+    }, [project.id, channel]);
+
+
+    function ConnectionIndicator() {
+        const status = useConnectionStatus();
+
+        return <div>Connection: {status}</div>;
+}
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <div className='p-4 flex flex-col'>
@@ -54,10 +92,12 @@ export default function Show({ project, issues }: ShowProps) {
                 
                 {/* <InviteDialog project={project} isOpen={showInviteModal} onClose={() => setShowInviteModal(false)}/> */}
                  
-                
+                {ConnectionIndicator()}
 
                 <h2 className="mt-6 text-xl font-semibold">Issue Board</h2>
                 <ProjectGrid issues={issues} project={project}/>
+
+                <h2>Online users: {onlineUser.map((user) => user.name).join(',')}</h2>
         </div>
         </AppLayout>
         
