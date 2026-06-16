@@ -39,16 +39,21 @@ export default function Show({ project, issues }: ShowProps) {
     const [onlineUser, setOnlineUsers] = useState<User[]>([]);
     const [messages, setMessages] = useState<Message[]>([])
     const {channel, leave} = useEchoPresence(
-    `projects.${project.id}`,
-    "OpenedProject",
-    (e) => {
-        console.log(e);
-    },
+        `projects.${project.id}`,
+        // ["OpenedProject", '.App\\Events\\NewProjectMessage'],
+        // (e: Message) => {
+        //     console.log(e);
+        //     setMessages((prev) => [...prev, e])
+
+        // },
     );
 
     useEffect(() => {
         
         const presenceChannel = channel();
+        // This is necessary to make sure that we are connected to a channel
+        // console.log(presenceChannel)
+        if (!presenceChannel) return;
 
         presenceChannel.here((users: User[]) => {
             console.log(users)
@@ -78,7 +83,10 @@ export default function Show({ project, issues }: ShowProps) {
             console.log(e)
         });
 
-        return () => {leave()};
+        //return () => leave();
+        return () => {
+        presenceChannel.stopListening('.App\\Events\\NewProjectMessage');
+    };
        // Not really sure if I need these in the dependencies
     }, [project.id, channel]);
 
