@@ -52,4 +52,11 @@ class IssueController extends Controller
 
         return redirect()->back();
     }
+
+
+    public function delete(Project $project, Issue $issue, IssueService $issueService) {
+        $issueService->deleteIssue($issue);
+
+        return redirect()->back();
+    }
 }

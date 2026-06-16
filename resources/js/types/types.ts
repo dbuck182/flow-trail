@@ -22,3 +22,16 @@ export type Issue = {
     status: Status,
     priority: string
 }
+
+export type invite = {
+        'project_id' : string,
+        'email': string, 
+        'token': string,
+        'role': string,
+}
+
+ export type Message = {
+        id: number,
+        userName: string,
+        message: string
+    }

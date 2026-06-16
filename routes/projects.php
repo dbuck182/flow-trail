@@ -3,6 +3,8 @@
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\IssueCreationController;
+use App\Http\Controllers\ProjectInvitationController;
+use App\Http\Controllers\ProjectMessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -27,5 +29,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/projects/{project}/issues/{issue}', [IssueController::class, 'show']);
 
     Route::put('/projects/{project}/issues/{issue}', [IssueController::class, 'update']);
+    Route::delete('/projects/{project}/issues/{issue}', [IssueController::class, 'delete']);
 
+    # Routes for Project Invitiations
+    Route::get('/projects/{project}/invite', [ProjectInvitationController::class, 'create'])
+        ->name('project.invitations.create');
+
+    Route::post('/projects/{project}/invite', [ProjectInvitationController::class, 'store'])
+        ->name('project.invitations.store');
+    
+    Route::get('/invites', [ProjectInvitationController::class, 'index'])
+        ->name('invites.index');
+
+    Route::post('/invites/{projectInvite}/accept', [ProjectInvitationController::class, 'accept'])
+        ->name('invites.accept');
+    
+    Route::post('/invites/{projectInvite}/deny', [ProjectInvitationController::class, 'deny'])
+        ->name('invites.deny');
+
+    # Routes for Sending Messages in a project
+
+    Route::post('/projects/{project}/sendMessage', [ProjectMessageController::class, 'store'])
+        ->name('project.messages.store');
 });

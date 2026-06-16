@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -10,8 +11,10 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('dashboard');
+Route::get('dashboard', function (Request $request) {
+    return Inertia::render('dashboard', [
+        'invites' => $request->user()->incomingInvites()->get(),
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/settings.php';

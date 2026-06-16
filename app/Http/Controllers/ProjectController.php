@@ -26,9 +26,9 @@ class ProjectController extends Controller
     }
 
     public function index(Request $request)
-    {
+    {   # Here we want to return mem_projects b/c this will be all of the shared ones too
         return Inertia::render('projects', [
-            'project_list' => $request->user()->projects()->latest()->get(),
+            'project_list' => $request->user()->mem_projects()->latest()->get(),
         ]);
     }
 

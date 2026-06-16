@@ -30,18 +30,11 @@ class Event extends Model
     }
 
     /**
-     * An event belongs to a creator (user).
+     * An event belongs to a user.
      */
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * An event belongs to an assignee(user).
-     */
-    public function assignee()
-    {
-        return $this->belongsTo(User::class, 'assignee_id');
-    }
 }

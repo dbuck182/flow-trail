@@ -75,4 +75,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Event::class);
     }
+
+     /**
+     * A project has a many to many relationship with users
+     */
+    public function mem_projects()
+    {
+        return $this->belongsToMany(Project::class, 'projects_users')->withPivot('role');
+    }
+
+    public function incomingInvites()
+    {
+        return $this->hasMany(ProjectInvite::class, 'email', 'email');
+    }
 }
