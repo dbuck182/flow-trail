@@ -4,6 +4,7 @@ use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\IssueCreationController;
 use App\Http\Controllers\ProjectInvitationController;
+use App\Http\Controllers\ProjectMessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -45,4 +46,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::post('/invites/{projectInvite}/deny', [ProjectInvitationController::class, 'deny'])
         ->name('invites.deny');
+
+    # Routes for Sending Messages in a project
+
+    Route::post('/projects/{project}/sendMessage', [ProjectMessageController::class, 'store'])
+        ->name('project.messages.store');
 });

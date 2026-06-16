@@ -29,3 +29,9 @@ export type invite = {
         'token': string,
         'role': string,
 }
+
+ export type Message = {
+        id: number,
+        userName: string,
+        message: string
+    }

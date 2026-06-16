@@ -7,12 +7,19 @@ import { Link } from '@inertiajs/react';
 import InviteDialog from './InviteDialog';
 import { useEffect, useState } from 'react';
 import { useEcho, useEchoPresence } from "@laravel/echo-react";
- import { useConnectionStatus } from "@laravel/echo-react";
+import { useConnectionStatus } from "@laravel/echo-react";
 import Echo from 'laravel-echo';
+import ChatWindow from './ChatWindow';
+import { Message } from '@/types/types';
 
 interface ShowProps {
     project: Project;
     issues: Issue[];
+}
+
+type User = {
+    name: string,
+    email: string
 }
 
 // COME BACK TO FIX THIS
@@ -29,8 +36,8 @@ export default function Show({ project, issues }: ShowProps) {
 
     
 
-    const [onlineUser, setOnlineUsers] = useState([]);
-
+    const [onlineUser, setOnlineUsers] = useState<User[]>([]);
+    const [messages, setMessages] = useState<Message[]>([])
     const {channel, leave} = useEchoPresence(
     `projects.${project.id}`,
     "OpenedProject",
@@ -43,29 +50,36 @@ export default function Show({ project, issues }: ShowProps) {
         
         const presenceChannel = channel();
 
-        presenceChannel.here((users) => {
+        presenceChannel.here((users: User[]) => {
             console.log(users)
             setOnlineUsers(users)
         });
 
-        presenceChannel.joining((user) => {
+        presenceChannel.joining((user: User) => {
             setOnlineUsers((prev) => {
-                if (prev.some((u) => u.email === user.email)) return prev;
+                if (prev.some((u: User) => u.email === user.email)) return prev;
                 return [...prev, user];
             });
         });
         
-        presenceChannel.leaving((user) => {
+        presenceChannel.leaving((user: User) => {
             console.log(user.name + " Left")
-            setOnlineUsers((prev) => prev.filter((u) => u.name !== user.name))
+            setOnlineUsers((prev) => prev.filter((u: User) => u.name !== user.name))
         })
 
-        presenceChannel.error((error) => {
+        presenceChannel.error((error: Error) => {
             console.error(error)
         })
 
+        presenceChannel.listen('.App\\Events\\NewProjectMessage', (e: any) => {
+            // Fires when someone broadcasts a new chat message text
+            setMessages((prev) => [...prev, e])
+            console.log('Fired')
+            console.log(e)
+        });
+
         return () => {leave()};
-       
+       // Not really sure if I need these in the dependencies
     }, [project.id, channel]);
 
 
@@ -97,7 +111,8 @@ export default function Show({ project, issues }: ShowProps) {
                 <h2 className="mt-6 text-xl font-semibold">Issue Board</h2>
                 <ProjectGrid issues={issues} project={project}/>
 
-                <h2>Online users: {onlineUser.map((user) => user.name).join(',')}</h2>
+                <h2>Online users: {onlineUser.map((user) => user.name).join(', ')}</h2>
+                <ChatWindow project_id={project.id} url={'projects/' + project.id + '/'} messages={messages}/>
         </div>
         </AppLayout>
         
